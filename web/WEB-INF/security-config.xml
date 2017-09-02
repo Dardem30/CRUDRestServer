@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+<security:http>
+    <security:intercept-url pattern="/" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"/>
+    <security:intercept-url pattern="restController/*/*" access="permitAll"/>
+    <security:intercept-url pattern="restController/*" access="permitAll"/>
+    <security:form-login login-page="/login" default-target-url="/" authentication-failure-url="/login?error"
+                         username-parameter="username" password-parameter="password"/>
+    <security:logout logout-success-url="/login?logout"/>
+    <security:csrf disabled="true"/>
+</security:http>
+    <bean id="userDetailsService" class="by.service.UserDetailsServiceImpl"/>
+    <security:authentication-manager>
+        <security:authentication-provider user-service-ref="userDetailsService"/>
+    </security:authentication-manager>
+</beans>
