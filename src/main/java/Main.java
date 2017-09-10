@@ -1,3 +1,4 @@
+import by.model.Role;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -31,6 +32,8 @@ public class Main {
         final Session session = getSession();
         try {
            session.beginTransaction();
+//            Role role= (Role) session.get(Role.class,1);
+//            System.out.println(role.getUserSet());
            session.getTransaction().commit();
         } finally {
             session.close();

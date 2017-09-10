@@ -64,7 +64,7 @@ public class User {
         this.lastname = lastname;
     }
 
-    @ManyToMany(mappedBy = "userSet",fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "userSet",fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     public Set<Role> getRoleSet() {
         return roleSet;
     }

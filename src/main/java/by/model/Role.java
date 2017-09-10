@@ -36,7 +36,7 @@ public class Role {
     }
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     @JoinTable(name = "role_user", joinColumns=@JoinColumn(name = "role_id"),
     inverseJoinColumns = @JoinColumn(name = "user_id"))
     public Set<User> getUserSet() {

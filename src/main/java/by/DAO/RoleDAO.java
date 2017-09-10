@@ -17,4 +17,7 @@ public class RoleDAO {
         Role role= (Role) sessionFactory.getCurrentSession().get(Role.class,id);
         return role;
     }
+    public void updateRole(Role role){
+       this.sessionFactory.getCurrentSession().update(role);
+    }
 }

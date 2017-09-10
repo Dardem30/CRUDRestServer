@@ -7,6 +7,7 @@ import by.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.jws.soap.SOAPBinding;
 import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
@@ -23,9 +24,17 @@ public class UserService {
     @Autowired
     private RoleDAO roleDAO;
     public void saveUser(User user){
-        Set<Role> roleSet=new HashSet<>();
-        roleSet.add(roleDAO.getRoleById(2));
-        user.setRoleSet(roleSet);
+      Set<Role> roleSet=new HashSet<>();
+      Set<User> userSet=new HashSet<>();
+      Role role=roleDAO.getRoleById(2);
+      roleSet.add(role);
+      user.setRoleSet(roleSet);
+      for(User user1: role.getUserSet()){
+          userSet.add(user1);
+      }
+      userSet.add(user);
+        role.setUserSet(userSet);
+        roleDAO.updateRole(role);
         userDAO.saveUser(user);
     }
     public User getUserByUsername(String username){

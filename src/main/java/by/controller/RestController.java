@@ -18,11 +18,18 @@ import java.util.List;
 public class RestController {
     @Autowired
     private UserService userService;
-    @RequestMapping(value = "/user/{id}",method = RequestMethod.GET
+    @RequestMapping(value = "/userById/{id}",method = RequestMethod.GET
             ,produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public ResponseEntity<User> getUserById(@PathVariable int id){
         User user=userService.getUserById(id);
+        return new ResponseEntity<User>(user, HttpStatus.OK);
+    }
+    @RequestMapping(value = "/userByUsername/{username}",method = RequestMethod.GET
+            ,produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<User> getUserByUsername(@PathVariable String username){
+        User user=userService.getUserByUsername(username);
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
     @RequestMapping(value = "/users",method = RequestMethod.GET,produces = "application/json")
